@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "npm run build && electron ./build/index.js",
-    "build": "PUBLIC_URL=./ react-scripts build && tsc -p electron/tsconfig.json",
+    "build": "react-scripts build && tsc -p electron/tsconfig.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -42,6 +42,22 @@
     ]
   },
   "devDependencies": {
+    "@electron-forge/publisher-github": "^6.0.0-beta.61",
     "electron-reload": "^2.0.0-alpha.1"
+  },
+  "config": {
+    "forge": {
+      "publishers": [
+        {
+          "name": "@electron-forge/publisher-github",
+          "config": {
+            "repository": {
+              "owner": "Pauli Sairanen",
+              "name": "electron-publish-example"
+            }
+          }
+        }
+      ]
+    }
   }
 }
