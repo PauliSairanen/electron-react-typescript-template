@@ -19,7 +19,7 @@
   },
   "scripts": {
     "start": "npm run build && electron ./build/index.js",
-    "build": "react-scripts build && tsc -p electron/tsconfig.json",
+    "build": " PUBLIC_URL=./ react-scripts build && tsc -p electron/tsconfig.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "publish": "electron-forge publish"
