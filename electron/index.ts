@@ -1,6 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 
-const { ipcMain } = require('electron')
+const { ipcMain, dialog } = require('electron')
 
 const fs = require('fs').promises
 
@@ -40,16 +40,19 @@ app.on('window-all-closed', () => {
 })
 
 ipcMain.handle('saveJson', async (event, obj) => {
-
-  console.log('Hello, I am a node server. I will save a file', obj.filename )
-
+  console.log('Hello, I am a node server. I will save a file', obj.filename)
   var fh = await fs.open(obj.filename, 'w')
-
   await fh.writeFile(JSON.stringify(obj.data))
-  
   await fh.close()
-
-  var result= {ok: true}
+  var result = { ok: true }
   console.log('returning', result)
   return result
+})
+
+ipcMain.handle('openFileSystem', async (event, window) => {
+  let path = dialog.showOpenDialogSync(window, {
+    properties: ['openDirectory']
+  })
+  console.log('Got the path: ', path)
+  return path
 })
